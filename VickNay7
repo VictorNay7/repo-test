@@ -1,0 +1,73 @@
+# This program calculates employee's take home pay.
+
+name = input("Enter Employee first and last name : ").strip()
+HourlyRate = float(input("Enter houry rate: "))
+regularHoursWorked = float(input("Enter the number of hours worked: "))
+holidays = float(input("enter holidays hours: "))
+CovidShift = float(input("enter shift change hours: ")) 
+TotalHoursWorked = regularHoursWorked + holidays + CovidShift
+
+
+OverTime =round((TotalHoursWorked - 80)*(HourlyRate*1.538265306122449), 2)
+Regular = round(regularHoursWorked*HourlyRate, 2)
+holiday_used = (holidays*HourlyRate)
+ShiftDiffer = round((regularHoursWorked+holidays+CovidShift)*1.5, 3)
+CovidShift =round(CovidShift*HourlyRate, 2)
+GrossPay =round( Regular+OverTime+ShiftDiffer+holiday_used+CovidShift, 2)
+if TotalHoursWorked > 80:
+    overtimesHours =round(TotalHoursWorked-80,2)
+    print("Weekly overtimes hours is ",overtimesHours )
+    Regular = round((regularHoursWorked-overtimesHours)*HourlyRate, 2)
+    ShiftDiffer = round((TotalHoursWorked-holidays)*1.5, 3)
+    GrossPay =round( Regular+OverTime+ShiftDiffer+holiday_used+CovidShift, 3)
+    
+    
+else:
+    TotalHoursWorked<= 80
+    overtimesHours=0
+    print("Biweekly overtimes hours: ",overtimesHours)
+
+for401K = round(GrossPay * 0.06, 2)
+MEdical = 59.52
+Dental = 7.27
+SocialSecurity = round(GrossPay * 0.0599129750030287, 3)
+Medicare = round(GrossPay *0.0140128417396923, 2)
+stateTaxDeduction= round(GrossPay * 0.0444130412839406, 1)
+FederalTaxDeduction= round(GrossPay * 0.0582523696682464, 3)
+NetPay = round(GrossPay - (stateTaxDeduction + FederalTaxDeduction+for401K+
+                          MEdical+Dental+SocialSecurity ), 2)
+TotalTaxWithholding = round(stateTaxDeduction + FederalTaxDeduction+SocialSecurity+Medicare , 2)
+
+print("-------------------------------------------------------")
+
+print("Employee name:", name)
+
+print("Employee name:",overtimesHours)
+print("-------------------------------------------------------")
+print("EARNINGS")
+print("-------------------------------------------------------")    
+print("Regular : ",Regular)
+print("Holidays : ",holiday_used)
+print("OverTime :",OverTime)
+print("shift differ:",ShiftDiffer)
+print("Covid shift change :",CovidShift)
+
+print("gROSSPAY :",GrossPay)
+
+print("-------------------------------------------------------")
+print("TAXES")
+print("-------------------------------------------------------")
+print("Medicare: ", Medicare)
+print("social security : ", SocialSecurity)
+print("STATETAX:",stateTaxDeduction)
+print("federalTAX:",FederalTaxDeduction)
+print("TotalTaxWithholding :",TotalTaxWithholding)
+print("-------------------------------------------------------")
+print("Deduction (pre-tax)")
+print("-------------------------------------------------------")
+print("401k : ",for401K)
+print("Medical : ", MEdical)
+print("Dental: " , Dental)
+
+print("-------------------------------------------------------")
+print("NetPay :",NetPay)
